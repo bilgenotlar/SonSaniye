@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="standard">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SON SANİYE — MaviBlue Stüdyo Sunar</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'flash': 'flash 0.55s ease-out forwards',
+                    },
+                    keyframes: {
+                        flash: {
+                            '0%': { opacity: '0.45' },
+                            '100%': { opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* TEMA DEĞİŞKENLERİ */
+        :root, [data-theme="standard"] {
+            --bg-base: #0f172a;
+            --bg-gradient: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.16) 0%, transparent 55%),
+                           radial-gradient(circle at 85% 95%, rgba(16, 185, 129, 0.14) 0%, transparent 50%),
+                           linear-gradient(160deg, #0f172a 0%, #1e1b4b 100%);
+            --surface-1: rgba(15, 23, 42, 0.78);
+            --surface-2: rgba(30, 41, 59, 0.75);
+            --surface-timer: rgba(2, 6, 23, 0.85);
+            --border-color: rgba(148, 163, 184, 0.18);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-primary: #10b981;
+            --accent-primary-text: #022c22;
+            --accent-secondary: #38bdf8;
+            --accent-combo: #f59e0b;
+            --btn-start-bg: linear-gradient(135deg, #34d399 0%, #10b981 50%, #0d9488 100%);
+            --btn-start-text: #022c22;
+            --btn-start-shadow: 0 0 38px rgba(16, 185, 129, 0.35);
+            --btn-stop-bg: linear-gradient(135deg, #fb7185 0%, #e11d48 55%, #ea580c 100%);
+            --btn-stop-text: #ffffff;
+            --btn-stop-shadow: 0 0 42px rgba(244, 63, 94, 0.45);
+            --btn-next-bg: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+            --btn-next-text: #ffffff;
+            --btn-next-shadow: 0 0 36px rgba(56, 189, 248, 0.35);
+            --ring-track: rgba(51, 65, 85, 0.6);
+            --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --dot-pattern: rgba(56, 189, 248, 0.12);
+        }
+
+        [data-theme="dark"] {
+            --bg-base: #000000;
+            --bg-gradient: radial-gradient(circle at 50% 0%, rgba(244, 63, 94, 0.12) 0%, transparent 50%),
+                           radial-gradient(circle at 80% 90%, rgba(168, 85, 247, 0.12) 0%, transparent 50%),
+                           #000000;
+            --surface-1: #09090b;
+            --surface-2: #121215;
+            --surface-timer: #050507;
+            --border-color: #27272a;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-muted: #52525b;
+            --accent-primary: #f43f5e;
+            --accent-primary-text: #ffffff;
+            --accent-secondary: #a855f7;
+            --accent-combo: #eab308;
+            --btn-start-bg: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            --btn-start-text: #ffffff;
+            --btn-start-shadow: 0 0 36px rgba(168, 85, 247, 0.35);
+            --btn-stop-bg: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+            --btn-stop-text: #ffffff;
+            --btn-stop-shadow: 0 0 42px rgba(244, 63, 94, 0.5);
+            --btn-next-bg: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            --btn-next-text: #ffffff;
+            --btn-next-shadow: 0 0 36px rgba(236, 72, 153, 0.35);
+            --ring-track: #18181b;
+            --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.9);
+            --dot-pattern: rgba(168, 85, 247, 0.12);
+        }
+
+        [data-theme="light"] {
+            --bg-base: #f8fafc;
+            --bg-gradient: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.08) 0%, transparent 55%),
+                           radial-gradient(circle at 85% 90%, rgba(5, 150, 105, 0.08) 0%, transparent 50%),
+                           #f1f5f9;
+            --surface-1: #ffffff;
+            --surface-2: #f1f5f9;
+            --surface-timer: #ffffff;
+            --border-color: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --accent-primary: #2563eb;
+            --accent-primary-text: #ffffff;
+            --accent-secondary: #059669;
+            --accent-combo: #d97706;
+            --btn-start-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --btn-start-text: #ffffff;
+            --btn-start-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+            --btn-stop-bg: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            --btn-stop-text: #ffffff;
+            --btn-stop-shadow: 0 12px 30px rgba(239, 68, 68, 0.32);
+            --btn-next-bg: linear-gradient(135deg, #059669 0%, #047857 100%);
+            --btn-next-text: #ffffff;
+            --btn-next-shadow: 0 12px 28px rgba(5, 150, 105, 0.28);
+            --ring-track: #e2e8f0;
+            --card-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.07);
+            --dot-pattern: rgba(37, 99, 235, 0.08);
+        }
+
+        [data-theme="minimalist"] {
+            --bg-base: #f5f5f4;
+            --bg-gradient: #f5f5f4;
+            --surface-1: #fafaf9;
+            --surface-2: #e7e5e4;
+            --surface-timer: #fafaf9;
+            --border-color: #d6d3d1;
+            --text-primary: #1c1917;
+            --text-secondary: #57534e;
+            --text-muted: #78716c;
+            --accent-primary: #1c1917;
+            --accent-primary-text: #fafaf9;
+            --accent-secondary: #ea580c;
+            --accent-combo: #b45309;
+            --btn-start-bg: #1c1917;
+            --btn-start-text: #fafaf9;
+            --btn-start-shadow: none;
+            --btn-stop-bg: #ea580c;
+            --btn-stop-text: #fafaf9;
+            --btn-stop-shadow: none;
+            --btn-next-bg: #44403c;
+            --btn-next-text: #fafaf9;
+            --btn-next-shadow: none;
+            --ring-track: #d6d3d1;
+            --card-shadow: none;
+            --dot-pattern: transparent;
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            background-image: var(--bg-gradient);
+            color: var(--text-primary);
+            min-height: 100dvh;
+            overflow-x: hidden;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        .theme-surface-1 {
+            background-color: var(--surface-1);
+            border-color: var(--border-color);
+            box-shadow: var(--card-shadow);
+        }
+
+        .theme-surface-2 {
+            background-color: var(--surface-2);
+            border-color: var(--border-color);
+        }
+
+        .theme-timer-box {
+            background-color: var(--surface-timer);
+            border-color: var(--border-color);
+            box-shadow: var(--card-shadow);
+        }
+
+        .theme-text-primary { color: var(--text-primary); }
+        .theme-text-secondary { color: var(--text-secondary); }
+        .theme-text-muted { color: var(--text-muted); }
+        .theme-accent-primary { color: var(--accent-primary); }
+        .theme-accent-secondary { color: var(--accent-secondary); }
+
+        /* Minimalist temada ekstra keskin tipografi ve gölgesiz yapı */
+        [data-theme="minimalist"] .timer-digits {
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+        [data-theme="minimalist"] .action-btn {
+            border-width: 1px !important;
+            border-color: #1c1917 !important;
+        }
+
+        /* Buzlu Cam / Gizli Sayaç Efekti */
+        .timer-hidden {
+            filter: blur(18px);
+            opacity: 0.14;
+            transform: scale(0.94);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .timer-visible {
+            filter: blur(0px);
+            opacity: 1;
+            transform: scale(1);
+            transition: all 0.22s ease-out;
+        }
+
+        /* Merkez Buton Durumları */
+        .action-btn {
+            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, background 0.25s ease;
+        }
+        .action-btn:active {
+            transform: scale(0.94);
+        }
+        .action-btn.state-start {
+            background: var(--btn-start-bg);
+            color: var(--btn-start-text);
+            box-shadow: var(--btn-start-shadow);
+        }
+        .action-btn.state-stop {
+            background: var(--btn-stop-bg);
+            color: var(--btn-stop-text);
+            box-shadow: var(--btn-stop-shadow);
+        }
+        .action-btn.state-next {
+            background: var(--btn-next-bg);
+            color: var(--btn-next-text);
+            box-shadow: var(--btn-next-shadow);
+        }
+
+        /* SVG Halka Animasyonu */
+        .progress-ring__circle {
+            transition: stroke 0.25s ease, opacity 0.25s ease;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        /* Konfeti Parçacıkları */
+        .confetti {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            pointer-events: none;
+            z-index: 70;
+            border-radius: 2px;
+        }
+
+        /* Özel İnce Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 9999px; }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-between p-3 sm:p-5 antialiased">
+
+    <!-- Tam İsabet Ekran Parlaması -->
+    <div id="screenFlash" class="fixed inset-0 bg-amber-400 pointer-events-none opacity-0 z-50"></div>
+
+    <!-- ÜST BAR: Marka, Skor, Tema Seçici, İstatistikler ve Ses -->
+    <header class="w-full max-w-md flex flex-col gap-2.5 relative z-30">
+        <div class="flex items-center justify-between theme-surface-1 backdrop-blur-md border rounded-2xl px-3.5 py-2.5">
+            <!-- Sol: Logo & Marka Adı -->
+            <div class="flex items-center gap-2.5 min-w-0">
+                <!-- Minimalist Kronometre Nişangah İkonu -->
+                <div class="w-9 h-9 rounded-xl theme-surface-2 border flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5 theme-accent-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="13" r="8"></circle>
+                        <path d="M12 9v4l2.5 1.5"></path>
+                        <path d="M9 2h6"></path>
+                        <path d="M12 2v3"></path>
+                    </svg>
+                </div>
+                <div class="flex flex-col min-w-0">
+                    <h1 class="text-xs sm:text-sm font-black tracking-tight leading-none theme-text-primary truncate">
+                        SON SANİYE
+                    </h1>
+                    <span class="text-[10px] sm:text-[11px] font-medium theme-text-secondary mt-0.5 truncate">
+                        <a href="https://maviblue.win" target="_blank" rel="noopener noreferrer" class="font-bold theme-accent-secondary hover:underline underline-offset-2 transition">MaviBlue</a> Stüdyo Sunar
+                    </span>
+                </div>
+            </div>
+
+            <!-- Sağ Kontroller: Aktif Puan + İstatistik + Tema + Ses -->
+            <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <!-- Aktif Oyun Puanı -->
+                <div class="text-right mr-1">
+                    <div class="flex items-center justify-end gap-1">
+                        <span id="comboBadge" class="hidden items-center bg-amber-500/20 border border-amber-500/40 text-amber-500 px-1.5 py-0.2 rounded text-[10px] font-extrabold animate-pop">
+                            🔥 1.5x
+                        </span>
+                        <span class="text-[9px] uppercase tracking-wider theme-text-muted font-bold">Puan</span>
+                    </div>
+                    <div id="totalScoreDisplay" class="font-mono text-lg sm:text-xl font-extrabold theme-text-primary leading-none">0</div>
+                </div>
+
+                <!-- İstatistikler Butonu -->
+                <button id="openStatsBtn" type="button" title="İstatistikler" aria-label="İstatistikler" class="relative z-10 p-2 rounded-xl theme-surface-2 border hover:opacity-85 transition active:scale-95 cursor-pointer">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 theme-text-primary pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <span id="statsCountBadge" class="hidden pointer-events-none absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-amber-500 text-slate-950 font-mono text-[10px] font-extrabold items-center justify-center shadow">
+                        0
+                    </span>
+                </button>
+
+                <!-- Tema Seçici Dropdown -->
+                <div class="relative z-10" id="themeDropdownWrapper">
+                    <button id="themeToggleBtn" type="button" title="Tema Seç" aria-label="Tema Seç" class="p-2 rounded-xl theme-surface-2 border hover:opacity-85 transition active:scale-95 cursor-pointer">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 theme-accent-secondary pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Tema Menüsü -->
+                    <div id="themeMenu" class="hidden absolute right-0 mt-2 w-44 theme-surface-1 backdrop-blur-xl border rounded-2xl p-1.5 z-40">
+                        <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider theme-text-muted">Görünüm Teması</div>
+                        <button data-theme-option="standard" class="theme-option w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-semibold hover:bg-slate-500/10 transition cursor-pointer">
+                            <span class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-gradient-to-tr from-indigo-900 to-emerald-400 border border-white/30"></span>
+                                Standart
+                            </span>
+                            <span class="theme-check text-emerald-500 font-bold">✓</span>
+                        </button>
+                        <button data-theme-option="dark" class="theme-option w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-semibold hover:bg-slate-500/10 transition cursor-pointer">
+                            <span class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-black border border-rose-500"></span>
+                                Koyu (OLED)
+                            </span>
+                            <span class="theme-check hidden text-rose-500 font-bold">✓</span>
+                        </button>
+                        <button data-theme-option="light" class="theme-option w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-semibold hover:bg-slate-500/10 transition cursor-pointer">
+                            <span class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-white border border-blue-600"></span>
+                                Açık
+                            </span>
+                            <span class="theme-check hidden text-blue-600 font-bold">✓</span>
+                        </button>
+                        <button data-theme-option="minimalist" class="theme-option w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-semibold hover:bg-slate-500/10 transition cursor-pointer">
+                            <span class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-[#f5f5f4] border border-[#1c1917]"></span>
+                                Minimalist
+                            </span>
+                            <span class="theme-check hidden text-stone-900 font-bold">✓</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ses Aç/Kapat -->
+                <button id="soundToggleBtn" type="button" title="Sesi Aç/Kapat" aria-label="Sesi Aç veya Kapat" class="relative z-10 p-2 rounded-xl theme-surface-2 border hover:opacity-85 transition active:scale-95 cursor-pointer">
+                    <svg id="soundOnIcon" class="w-4 h-4 sm:w-5 sm:h-5 theme-accent-primary pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                    </svg>
+                    <svg id="soundOffIcon" class="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- OYUN MODU SEÇİCİ SEKMELER -->
+        <nav id="modeNav" aria-label="Oyun Modları" class="grid grid-cols-3 gap-1.5 theme-surface-1 p-1.5 rounded-2xl border">
+            <button data-mode="classic" class="mode-tab py-2 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer">
+                Klasik Mod
+            </button>
+            <button data-mode="blind" class="mode-tab py-2 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer">
+                Kör Sayaç
+            </button>
+            <button data-mode="challenge" class="mode-tab py-2 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer">
+                5 Farklı Set
+            </button>
+        </nav>
+
+        <!-- 5 SET DURUM GÖSTERGELERİ -->
+        <div id="setIndicators" class="grid grid-cols-5 gap-2">
+            <!-- JS ile dinamik doldurulacak -->
+        </div>
+    </header>
+
+    <!-- GÖRÜNÜM 1: ANA OYUN ALANI -->
+    <main id="gameView" class="w-full max-w-md flex-1 flex flex-col items-center justify-center my-2 gap-3.5 sm:gap-5">
+        
+        <!-- Aktif Set Kural Kartı -->
+        <div class="w-full theme-surface-1 backdrop-blur-md border rounded-2xl px-4 py-3 text-center">
+            <div class="flex items-center justify-center gap-2">
+                <span id="setBadge" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full theme-surface-2 border theme-accent-secondary">
+                    SET 1 / 5 • ISINMA
+                </span>
+                <span id="multiplierTag" class="hidden text-[11px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-500 border border-amber-500/40">
+                    2X FİNAL
+                </span>
+            </div>
+            <div class="mt-1.5 flex items-baseline justify-center gap-2">
+                <span class="theme-text-secondary text-sm font-medium">Hedef Süre:</span>
+                <span id="targetTimeDisplay" class="font-mono text-2xl sm:text-3xl font-extrabold theme-accent-primary">10.00</span>
+                <span class="theme-text-secondary text-xs font-semibold">sn</span>
+            </div>
+            <p id="ruleDescription" class="text-xs theme-text-secondary mt-1">
+                Sayaç hep görünür. Tam 10.00 saniyede durdur!
+            </p>
+        </div>
+
+        <!-- BÜYÜK DİJİTAL KRONOMETRE EKRANI -->
+        <div class="relative w-full py-4 sm:py-5 rounded-3xl theme-timer-box border flex flex-col items-center justify-center overflow-hidden">
+            <!-- Arka Plan İnce Izgara -->
+            <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(var(--dot-pattern) 1px, transparent 1px); background-size: 16px 16px;"></div>
+            
+            <!-- Gizli Sayaç Uyarısı -->
+            <div id="blindOverlayText" class="hidden absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+                <span class="text-2xl sm:text-3xl mb-1">🙈</span>
+                <span class="text-xs sm:text-sm font-bold tracking-wider uppercase theme-surface-1 theme-accent-secondary px-3 py-1 rounded-full border">
+                    Sayaç Gizlendi! İçinden Say
+                </span>
+            </div>
+
+            <!-- Ana Rakamlar -->
+            <div id="timerValue" class="timer-visible timer-digits font-mono text-6xl sm:text-7xl font-extrabold tracking-tight theme-text-primary tabular-nums">
+                0.00
+            </div>
+
+            <!-- Set Sonucu / Fark Rozeti -->
+            <div id="roundFeedback" class="h-7 mt-1.5 flex items-center justify-center px-2">
+                <span class="text-xs theme-text-muted font-medium">Hazır olduğunda başlat</span>
+            </div>
+        </div>
+
+        <!-- ERGONOMİK TEK DİNAMİK MERKEZ BUTON + SVG PROGRESS RING -->
+        <div class="relative flex items-center justify-center my-1">
+            <!-- Dairesel İlerleme Halkası -->
+            <svg class="w-48 h-48 sm:w-56 sm:h-56 pointer-events-none" viewBox="0 0 220 220">
+                <circle
+                    id="progressTrack"
+                    cx="110" cy="110" r="98"
+                    stroke="var(--ring-track)"
+                    stroke-width="8"
+                    fill="transparent"
+                />
+                <circle
+                    id="progressRing"
+                    class="progress-ring__circle"
+                    cx="110" cy="110" r="98"
+                    stroke="var(--accent-primary)"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                    fill="transparent"
+                    stroke-dasharray="615.75"
+                    stroke-dashoffset="615.75"
+                />
+            </svg>
+
+            <!-- Merkez Buton -->
+            <button id="mainActionBtn" type="button" class="action-btn state-start absolute w-36 h-36 sm:w-44 sm:h-44 rounded-full font-extrabold border-4 border-white/25 flex flex-col items-center justify-center cursor-pointer focus:outline-none">
+                <span id="btnMainLabel" class="text-2xl sm:text-3xl tracking-wider pointer-events-none">BAŞLA</span>
+                <span id="btnSubLabel" class="text-[11px] sm:text-xs font-bold opacity-85 mt-1 uppercase tracking-widest pointer-events-none">Dokun / Space</span>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- GÖRÜNÜM 2: TAM ENTEGRE İSTATİSTİKLER EKRANI (VIEW SWITCHER) -->
+    <section id="statsView" class="hidden w-full max-w-md flex-1 flex-col my-2.5 gap-3">
+        <div class="w-full flex-1 theme-surface-1 backdrop-blur-md border rounded-3xl p-4 sm:p-5 flex flex-col gap-3.5">
+            
+            <!-- Üst Başlık & Oyuna Dön Butonu -->
+            <div class="flex items-center justify-between gap-2">
+                <div>
+                    <h2 class="text-base sm:text-lg font-extrabold theme-text-primary flex items-center gap-1.5">
+                        <span>📊</span> Oyun İstatistikleri
+                    </h2>
+                    <p class="text-[11px] theme-text-secondary">Tamamlanan 5 setlik oyun geçmişin</p>
+                </div>
+                <button id="backToGameBtn" type="button" class="px-3 py-2 rounded-xl theme-surface-2 border theme-text-primary text-xs font-extrabold hover:opacity-85 transition active:scale-95 cursor-pointer shrink-0">
+                    ← Oyuna Dön
+                </button>
+            </div>
+
+            <!-- 4 Özet Kartı -->
+            <div class="grid grid-cols-4 gap-1.5 sm:gap-2">
+                <div class="theme-surface-2 border rounded-2xl p-2 text-center">
+                    <div class="text-[9px] sm:text-[10px] font-bold uppercase theme-text-muted">Oyun</div>
+                    <div id="statTotalGames" class="font-mono text-base sm:text-lg font-extrabold theme-text-primary mt-0.5">0</div>
+                </div>
+                <div class="theme-surface-2 border rounded-2xl p-2 text-center">
+                    <div class="text-[9px] sm:text-[10px] font-bold uppercase theme-text-muted">En Yüksek</div>
+                    <div id="statBestScore" class="font-mono text-base sm:text-lg font-extrabold theme-accent-primary mt-0.5">0</div>
+                </div>
+                <div class="theme-surface-2 border rounded-2xl p-2 text-center">
+                    <div class="text-[9px] sm:text-[10px] font-bold uppercase theme-text-muted">Ortalama</div>
+                    <div id="statAvgScore" class="font-mono text-base sm:text-lg font-extrabold theme-accent-secondary mt-0.5">0</div>
+                </div>
+                <div class="theme-surface-2 border rounded-2xl p-2 text-center">
+                    <div class="text-[9px] sm:text-[10px] font-bold uppercase theme-text-muted">Tam İsabet</div>
+                    <div id="statExactHits" class="font-mono text-base sm:text-lg font-extrabold text-amber-500 mt-0.5">0</div>
+                </div>
+            </div>
+
+            <!-- Geçmiş Oyunlar Listesi -->
+            <div class="flex-1 min-h-[200px] max-h-[46dvh] overflow-y-auto flex flex-col gap-2 pr-1" id="historyListContainer">
+                <!-- JS ile doldurulacak -->
+            </div>
+
+            <!-- Alt Bölüm: İstatistikleri Sıfırla (İki Adımlı Onay) -->
+            <div id="resetStatsWrapper" class="pt-2.5 border-t" style="border-color: var(--border-color);">
+                <button id="resetStatsInitialBtn" type="button" class="w-full py-2.5 rounded-xl border border-rose-500/40 text-rose-500 hover:bg-rose-500/10 text-xs font-bold transition cursor-pointer">
+                    🗑️ İstatistikleri Sıfırla
+                </button>
+                <div id="resetStatsConfirmBox" class="hidden grid-cols-2 gap-2">
+                    <button id="resetStatsCancelBtn" type="button" class="py-2.5 rounded-xl theme-surface-2 border theme-text-primary text-xs font-bold transition cursor-pointer">
+                        Vazgeç
+                    </button>
+                    <button id="resetStatsConfirmBtn" type="button" class="py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-extrabold transition cursor-pointer">
+                        Evet, Tümünü Sil
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ALT BİLGİ -->
+    <footer class="w-full max-w-md text-center pb-1">
+        <p class="text-[11px] theme-text-muted">
+            PC: <kbd class="px-1.5 py-0.5 theme-surface-2 theme-text-secondary rounded border font-mono">Boşluk (Space)</kbd> veya <kbd class="px-1.5 py-0.5 theme-surface-2 theme-text-secondary rounded border font-mono">Enter</kbd> ile oyna.
+        </p>
+    </footer>
+
+    <!-- OYUN SONU ÖZET KARTI (OPACITY:0 ANİMASYONU OLMADAN) -->
+    <div id="summaryModal" class="hidden fixed inset-0 z-[100] bg-black/75 backdrop-blur-md items-center justify-center p-4">
+        <div class="w-full max-w-md theme-surface-1 border rounded-3xl p-5 sm:p-6 flex flex-col gap-4">
+            
+            <!-- Modal Başlık -->
+            <div class="text-center">
+                <div id="newRecordBadge" class="hidden inline-block mb-1.5 px-3 py-0.5 rounded-full bg-amber-500/20 border border-amber-500 text-amber-500 text-xs font-extrabold tracking-wider">
+                    🎉 YENİ REKOR!
+                </div>
+                <h2 class="text-xl sm:text-2xl font-extrabold theme-text-primary">5 Set Tamamlandı!</h2>
+                <p id="summaryModeTitle" class="text-xs theme-text-secondary mt-0.5">Klasik Mod Sonucu</p>
+            </div>
+
+            <!-- Büyük Toplam Puan Kartı -->
+            <div class="theme-surface-2 border rounded-2xl p-4 text-center">
+                <div class="text-xs uppercase tracking-widest theme-text-muted font-bold">Final Skoru</div>
+                <div id="finalTotalScore" class="font-mono text-4xl sm:text-5xl font-extrabold theme-accent-primary my-1">
+                    0
+                </div>
+                <div id="finalRankText" class="text-xs font-bold theme-accent-secondary">Salise Ustası!</div>
+            </div>
+
+            <!-- 5 Set Detay Tablosu -->
+            <div class="flex flex-col gap-1.5 max-h-52 overflow-y-auto pr-1" id="summaryBreakdownList">
+                <!-- JS ile doldurulacak -->
+            </div>
+
+            <!-- Aksiyon Butonları -->
+            <div class="grid grid-cols-2 gap-2.5">
+                <button id="summaryStatsBtn" type="button" class="py-3.5 rounded-2xl theme-surface-2 border theme-text-primary font-bold text-sm hover:opacity-85 transition active:scale-95 cursor-pointer">
+                    📊 İstatistikler
+                </button>
+                <button id="restartBtn" type="button" class="py-3.5 rounded-2xl font-extrabold text-sm tracking-wide transition active:scale-95 cursor-pointer" style="background: var(--btn-start-bg); color: var(--btn-start-text);">
+                    TEKRAR OYNA
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * SON SANİYE — Refleks & Zamanlama Oyunu
+         * Modüller:
+         * 1. SoundEngine: Web Audio API sentezleyici (görünür fazda tik-tak, gizli fazda sessiz)
+         * 2. ThemeManager: Standart, Koyu, Açık ve Minimalist tema yönetimi
+         * 3. StatsManager: Tamamlanan 5 setlik oyunların geçmişi ve özet metrikleri
+         * 4. SaliseAviGame: Yüksek hassasiyetli kronometre, 3 oyun modu ve puanlama motoru
+         */
+
+        // --- 1. WEB AUDIO API SES MOTORU ---
+        class SoundEngine {
+            constructor() {
+                this.ctx = null;
+                this.enabled = true;
+                this.lastTickStep = -1;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioContext();
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            toggle() {
+                this.enabled = !this.enabled;
+                return this.enabled;
+            }
+
+            // Her 0.25 sn'de bir hafif mekanik tik-tak (sadece sayaç görünürken çalar)
+            playTick(isFullSecond = false) {
+                if (!this.enabled) return;
+                this.init();
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(isFullSecond ? 1050 : 740, this.ctx.currentTime);
+                gain.gain.setValueAtTime(isFullSecond ? 0.065 : 0.03, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.03);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.035);
+            }
+
+            playStart() {
+                if (!this.enabled) return;
+                this.init();
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(440, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(660, this.ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.11, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.09);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.1);
+            }
+
+            playJackpot() {
+                if (!this.enabled) return;
+                this.init();
+                const freqs = [523.25, 659.25, 783.99, 1046.50];
+                freqs.forEach((f, idx) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(f, this.ctx.currentTime + idx * 0.05);
+                    gain.gain.setValueAtTime(0.13, this.ctx.currentTime + idx * 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + idx * 0.05 + 0.42);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(this.ctx.currentTime + idx * 0.05);
+                    osc.stop(this.ctx.currentTime + idx * 0.05 + 0.44);
+                });
+            }
+
+            playStop(score) {
+                if (!this.enabled) return;
+                this.init();
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = score >= 850 ? 'sine' : 'sawtooth';
+                
+                if (score >= 850) {
+                    osc.frequency.setValueAtTime(587.33, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(880, this.ctx.currentTime + 0.14);
+                    gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+                } else {
+                    osc.frequency.setValueAtTime(300, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(185, this.ctx.currentTime + 0.16);
+                    gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+                }
+                
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.18);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.19);
+            }
+
+            playFanfare() {
+                if (!this.enabled) return;
+                this.init();
+                const notes = [440, 554.37, 659.25, 880];
+                notes.forEach((n, i) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(n, this.ctx.currentTime + i * 0.07);
+                    gain.gain.setValueAtTime(0.1, this.ctx.currentTime + i * 0.07);
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + i * 0.07 + 0.35);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(this.ctx.currentTime + i * 0.07);
+                    osc.stop(this.ctx.currentTime + i * 0.07 + 0.36);
+                });
+            }
+        }
+
+        // --- 2. TEMA YÖNETİCİSİ ---
+        class ThemeManager {
+            constructor() {
+                this.storageKey = 'salise_avi_theme_v1';
+                this.currentTheme = this.loadTheme();
+                this.applyTheme(this.currentTheme);
+            }
+
+            loadTheme() {
+                try {
+                    return localStorage.getItem(this.storageKey) || 'standard';
+                } catch (e) {
+                    return 'standard';
+                }
+            }
+
+            applyTheme(themeName) {
+                this.currentTheme = themeName;
+                document.documentElement.setAttribute('data-theme', themeName);
+                try {
+                    localStorage.setItem(this.storageKey, themeName);
+                } catch (e) {}
+
+                // Seçili tema tik işaretini güncelle
+                document.querySelectorAll('.theme-option').forEach(btn => {
+                    const opt = btn.getAttribute('data-theme-option');
+                    const check = btn.querySelector('.theme-check');
+                    if (check) {
+                        check.classList.toggle('hidden', opt !== themeName);
+                    }
+                });
+            }
+        }
+
+        // --- 3. İSTATİSTİK YÖNETİCİSİ ---
+        class StatsManager {
+            constructor() {
+                this.storageKey = 'salise_avi_history_v1';
+                this.records = this.loadRecords();
+            }
+
+            loadRecords() {
+                try {
+                    const raw = localStorage.getItem(this.storageKey);
+                    return raw ? JSON.parse(raw) : [];
+                } catch (e) {
+                    return [];
+                }
+            }
+
+            saveRecords() {
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(this.records));
+                } catch (e) {}
+            }
+
+            addGameRecord(record) {
+                this.records.unshift(record); // En yeni en üstte
+                this.saveRecords();
+            }
+
+            clearAll() {
+                this.records = [];
+                this.saveRecords();
+            }
+
+            getSummary() {
+                const totalGames = this.records.length;
+                if (totalGames === 0) {
+                    return { totalGames: 0, bestScore: 0, avgScore: 0, totalExactHits: 0 };
+                }
+                let bestScore = 0;
+                let sumScore = 0;
+                let totalExactHits = 0;
+
+                this.records.forEach(r => {
+                    if (r.totalScore > bestScore) bestScore = r.totalScore;
+                    sumScore += r.totalScore;
+                    totalExactHits += (r.exactHits || 0);
+                });
+
+                return {
+                    totalGames,
+                    bestScore,
+                    avgScore: Math.round(sumScore / totalGames),
+                    totalExactHits
+                };
+            }
+        }
+
+        // --- 4. OYUN MODLARI YAPILANDIRMASI ---
+        const GAME_MODES = {
+            classic: {
+                name: 'Klasik Mod',
+                shortName: 'Klasik',
+                sets: [
+                    { title: 'ISINMA', start: 0, target: 10.00, reverse: false, hideAt: null, mult: 1, desc: 'Sayaç hep görünür. Tam 10.00 saniyede durdur!' },
+                    { title: 'KONTROL', start: 0, target: 10.00, reverse: false, hideAt: null, mult: 1, desc: 'Ritim duyguna güven. Hedef yine 10.00 saniye.' },
+                    { title: 'KÖR BÖLGE', start: 0, target: 10.00, reverse: false, hideAt: 5.00, mult: 1, desc: 'Dikkat! Sayaç 5.00 sn’de gizlenecek. İçinden say!' },
+                    { title: 'DERİN ODAK', start: 0, target: 10.00, reverse: false, hideAt: 5.00, mult: 1, desc: '5.00 sn’den sonra ekran bulanıklaşır. Hedef 10.00!' },
+                    { title: 'FİNAL TURU', start: 0, target: 10.00, reverse: false, hideAt: 5.00, mult: 1, desc: 'Son set! 5.00 sn’de gizlenir, 10.00’da yakala!' }
+                ]
+            },
+            blind: {
+                name: 'Kör Sayaç',
+                shortName: 'Kör Sayaç',
+                sets: [
+                    { title: '1. KÖR TUR', start: 0, target: 10.00, reverse: false, hideAt: 5.00, mult: 1, desc: 'Tüm setlerde sayaç 5.00 sn’de kaybolur. Hedef 10.00!' },
+                    { title: '2. KÖR TUR', start: 0, target: 10.00, reverse: false, hideAt: 5.00, mult: 1, desc: '5.00 sn’de ses ve görüntü kesilir. İç saatine güven!' },
+                    { title: '3. KÖR TUR', start: 0, target: 10.00, reverse: false, hideAt: 5.00, mult: 1, desc: 'Yarı yoldan sonra tamamen karanlıktasın. Hedef 10.00!' },
+                    { title: '4. KÖR TUR', start: 0, target: 10.00, reverse: false, hideAt: 5.00, mult: 1, desc: 'Kombo çarpanını korumak için 10.00’a odaklan!' },
+                    { title: '5. KÖR FİNAL', start: 0, target: 10.00, reverse: false, hideAt: 5.00, mult: 1, desc: 'Büyük final! 5.00 sn’de gizlenir, 10.00’da durdur.' }
+                ]
+            },
+            challenge: {
+                name: '5 Farklı Set',
+                shortName: '5 Farklı Set',
+                sets: [
+                    { title: 'ISINMA', start: 0, target: 10.00, reverse: false, hideAt: null, mult: 1, desc: 'Set 1: Sayaç hep açık. Tam 10.00 sn’de durdur!' },
+                    { title: 'HIZLI MOD', start: 0, target: 5.00, reverse: false, hideAt: 2.50, mult: 1, desc: 'Set 2: Kısa mesafe! 2.50 sn’de gizlenir, hedef 5.00 sn.' },
+                    { title: 'SABIR MODU', start: 0, target: 12.00, reverse: false, hideAt: 6.00, mult: 1, desc: 'Set 3: Uzun bekleyiş! 6.00 sn’de gizlenir, hedef 12.00 sn.' },
+                    { title: 'TERS SAYAÇ', start: 10.00, target: 0.00, reverse: true, hideAt: 5.00, mult: 1, desc: 'Set 4: 10.00’dan geriye sayar! 5.00’da gizlenir, hedef 0.00!' },
+                    { title: 'FİNAL (2X)', start: 0, target: 10.00, reverse: false, hideAt: 3.00, mult: 2, desc: 'Set 5: 3.00 sn’de gizlenir, hedef 10.00 sn. Puanlar 2x!' }
+                ]
+            }
+        };
+
+        // --- 5. ANA OYUN KONTROLCÜSÜ ---
+        class SaliseAviGame {
+            constructor() {
+                this.sound = new SoundEngine();
+                this.theme = new ThemeManager();
+                this.stats = new StatsManager();
+
+                this.currentModeKey = 'classic';
+                this.currentSetIndex = 0;
+                this.state = 'IDLE'; // IDLE, RUNNING, RESULT, FINISHED
+                
+                this.startTimePerf = 0;
+                this.rafId = null;
+                this.currentDisplayTime = 0;
+                this.isHiddenPhase = false;
+
+                this.totalScore = 0;
+                this.streak900Count = 0;
+                this.setResults = [];
+
+                this.ringCircumference = 2 * Math.PI * 98;
+                this.cacheDOM();
+                this.bindEvents();
+                this.updateStatsBadge();
+                this.selectMode('classic');
+            }
+
+            cacheDOM() {
+                this.dom = {
+                    totalScore: document.getElementById('totalScoreDisplay'),
+                    comboBadge: document.getElementById('comboBadge'),
+                    soundBtn: document.getElementById('soundToggleBtn'),
+                    soundOnIcon: document.getElementById('soundOnIcon'),
+                    soundOffIcon: document.getElementById('soundOffIcon'),
+                    themeToggleBtn: document.getElementById('themeToggleBtn'),
+                    themeMenu: document.getElementById('themeMenu'),
+                    themeWrapper: document.getElementById('themeDropdownWrapper'),
+                    openStatsBtn: document.getElementById('openStatsBtn'),
+                    statsCountBadge: document.getElementById('statsCountBadge'),
+                    modeNav: document.getElementById('modeNav'),
+                    modeTabs: document.querySelectorAll('.mode-tab'),
+                    setIndicators: document.getElementById('setIndicators'),
+                    gameView: document.getElementById('gameView'),
+                    statsView: document.getElementById('statsView'),
+                    backToGameBtn: document.getElementById('backToGameBtn'),
+                    setBadge: document.getElementById('setBadge'),
+                    multiplierTag: document.getElementById('multiplierTag'),
+                    targetTime: document.getElementById('targetTimeDisplay'),
+                    ruleDesc: document.getElementById('ruleDescription'),
+                    timerValue: document.getElementById('timerValue'),
+                    blindOverlay: document.getElementById('blindOverlayText'),
+                    roundFeedback: document.getElementById('roundFeedback'),
+                    progressRing: document.getElementById('progressRing'),
+                    mainBtn: document.getElementById('mainActionBtn'),
+                    btnMainLabel: document.getElementById('btnMainLabel'),
+                    btnSubLabel: document.getElementById('btnSubLabel'),
+                    screenFlash: document.getElementById('screenFlash'),
+                    // Özet Kartı
+                    summaryModal: document.getElementById('summaryModal'),
+                    newRecordBadge: document.getElementById('newRecordBadge'),
+                    summaryModeTitle: document.getElementById('summaryModeTitle'),
+                    finalTotalScore: document.getElementById('finalTotalScore'),
+                    finalRankText: document.getElementById('finalRankText'),
+                    summaryList: document.getElementById('summaryBreakdownList'),
+                    summaryStatsBtn: document.getElementById('summaryStatsBtn'),
+                    restartBtn: document.getElementById('restartBtn'),
+                    // İstatistik Görünümü
+                    statTotalGames: document.getElementById('statTotalGames'),
+                    statBestScore: document.getElementById('statBestScore'),
+                    statAvgScore: document.getElementById('statAvgScore'),
+                    statExactHits: document.getElementById('statExactHits'),
+                    historyListContainer: document.getElementById('historyListContainer'),
+                    resetStatsWrapper: document.getElementById('resetStatsWrapper'),
+                    resetStatsInitialBtn: document.getElementById('resetStatsInitialBtn'),
+                    resetStatsConfirmBox: document.getElementById('resetStatsConfirmBox'),
+                    resetStatsCancelBtn: document.getElementById('resetStatsCancelBtn'),
+                    resetStatsConfirmBtn: document.getElementById('resetStatsConfirmBtn')
+                };
+            }
+
+            bindEvents() {
+                // Merkez Ana Buton (Pointerdown ile sıfır dokunma gecikmesi)
+                this.dom.mainBtn.addEventListener('pointerdown', (e) => {
+                    e.preventDefault();
+                    this.handlePrimaryAction();
+                });
+
+                // PC Klavye Space / Enter / Escape Desteği
+                window.addEventListener('keydown', (e) => {
+                    if (!this.dom.statsView.classList.contains('hidden')) {
+                        if (e.code === 'Escape') this.closeStatsView();
+                        return;
+                    }
+                    if (e.code === 'Space' || e.code === 'Enter') {
+                        if (document.activeElement && document.activeElement.tagName === 'BUTTON' && document.activeElement !== this.dom.mainBtn) {
+                            return;
+                        }
+                        e.preventDefault();
+                        if (this.state === 'FINISHED') {
+                            this.restartGame();
+                        } else {
+                            this.handlePrimaryAction();
+                        }
+                    }
+                });
+
+                // Mod Sekmeleri
+                this.dom.modeTabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const mode = tab.getAttribute('data-mode');
+                        this.selectMode(mode);
+                    });
+                });
+
+                // Tema Menüsü Aç/Kapat
+                this.dom.themeToggleBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.dom.themeMenu.classList.toggle('hidden');
+                });
+
+                document.querySelectorAll('.theme-option').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const selected = btn.getAttribute('data-theme-option');
+                        this.theme.applyTheme(selected);
+                        this.dom.themeMenu.classList.add('hidden');
+                        this.updateModeTabStyles();
+                    });
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!this.dom.themeWrapper.contains(e.target)) {
+                        this.dom.themeMenu.classList.add('hidden');
+                    }
+                });
+
+                // Ses Aç/Kapat
+                this.dom.soundBtn.addEventListener('click', () => {
+                    const isOn = this.sound.toggle();
+                    this.dom.soundOnIcon.classList.toggle('hidden', !isOn);
+                    this.dom.soundOffIcon.classList.toggle('hidden', isOn);
+                });
+
+                // Özet Kartı Butonları
+                this.dom.restartBtn.addEventListener('click', () => this.restartGame());
+                this.dom.summaryStatsBtn.addEventListener('click', () => {
+                    this.hideSummary();
+                    this.openStatsView();
+                });
+
+                // İstatistik Görünümü Aç/Kapat (View Switcher)
+                this.dom.openStatsBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (this.dom.statsView.classList.contains('hidden')) {
+                        this.openStatsView();
+                    } else {
+                        this.closeStatsView();
+                    }
+                });
+                this.dom.backToGameBtn.addEventListener('click', () => this.closeStatsView());
+
+                // İstatistik Sıfırlama İki Adımlı Onay
+                this.dom.resetStatsInitialBtn.addEventListener('click', () => {
+                    this.dom.resetStatsInitialBtn.classList.add('hidden');
+                    this.dom.resetStatsConfirmBox.classList.remove('hidden');
+                    this.dom.resetStatsConfirmBox.classList.add('grid');
+                });
+                this.dom.resetStatsCancelBtn.addEventListener('click', () => {
+                    this.resetConfirmUI();
+                });
+                this.dom.resetStatsConfirmBtn.addEventListener('click', () => {
+                    this.stats.clearAll();
+                    this.resetConfirmUI();
+                    this.updateStatsBadge();
+                    this.renderStatsContent();
+                });
+            }
+
+            showSummary() {
+                this.dom.summaryModal.classList.remove('hidden');
+                this.dom.summaryModal.classList.add('flex');
+            }
+
+            hideSummary() {
+                this.dom.summaryModal.classList.add('hidden');
+                this.dom.summaryModal.classList.remove('flex');
+            }
+
+            resetConfirmUI() {
+                this.dom.resetStatsConfirmBox.classList.add('hidden');
+                this.dom.resetStatsConfirmBox.classList.remove('grid');
+                this.dom.resetStatsInitialBtn.classList.remove('hidden');
+            }
+
+            triggerHaptic(pattern) {
+                if (navigator.vibrate) {
+                    try { navigator.vibrate(pattern); } catch (e) {}
+                }
+            }
+
+            updateModeTabStyles() {
+                this.dom.modeTabs.forEach(tab => {
+                    const isActive = tab.getAttribute('data-mode') === this.currentModeKey;
+                    if (isActive) {
+                        tab.style.backgroundColor = 'var(--accent-primary)';
+                        tab.style.color = 'var(--accent-primary-text)';
+                        tab.className = 'mode-tab py-2 px-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all shadow-sm cursor-pointer';
+                    } else {
+                        tab.style.backgroundColor = 'transparent';
+                        tab.style.color = 'var(--text-secondary)';
+                        tab.className = 'mode-tab py-2 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all hover:opacity-80 cursor-pointer';
+                    }
+                });
+            }
+
+            selectMode(modeKey) {
+                if (this.rafId) cancelAnimationFrame(this.rafId);
+                this.currentModeKey = modeKey;
+                this.updateModeTabStyles();
+                this.restartGame();
+            }
+
+            restartGame() {
+                if (this.rafId) cancelAnimationFrame(this.rafId);
+                this.currentSetIndex = 0;
+                this.totalScore = 0;
+                this.streak900Count = 0;
+                this.setResults = [];
+                this.state = 'IDLE';
+
+                this.hideSummary();
+                this.closeStatsView();
+                this.updateScoreHeader();
+                this.renderSetIndicators();
+                this.prepareCurrentSetUI();
+            }
+
+            getCurrentSetConfig() {
+                return GAME_MODES[this.currentModeKey].sets[this.currentSetIndex];
+            }
+
+            renderSetIndicators() {
+                this.dom.setIndicators.innerHTML = '';
+                for (let i = 0; i < 5; i++) {
+                    const res = this.setResults[i];
+                    const isCurrent = i === this.currentSetIndex && this.state !== 'FINISHED';
+                    
+                    let statusClass = 'theme-surface-1 theme-text-muted';
+                    if (res) {
+                        if (res.isJackpot) {
+                            statusClass = 'bg-amber-500/20 border-amber-500 text-amber-500';
+                        } else if (res.diff <= 0.15) {
+                            statusClass = 'bg-emerald-500/20 border-emerald-500 text-emerald-500';
+                        } else if (res.diff <= 0.50) {
+                            statusClass = 'bg-amber-500/15 border-amber-400/70 text-amber-500';
+                        } else {
+                            statusClass = 'bg-rose-500/20 border-rose-500 text-rose-500';
+                        }
+                    } else if (isCurrent) {
+                        statusClass = 'theme-surface-2 theme-text-primary ring-2 ring-emerald-500/40';
+                    }
+
+                    const el = document.createElement('div');
+                    el.className = `h-9 rounded-xl border flex flex-col items-center justify-center transition-all ${statusClass}`;
+                    el.innerHTML = `
+                        <span class="text-[9px] uppercase font-bold opacity-75 leading-none">SET ${i + 1}</span>
+                        <span class="font-mono text-xs font-extrabold mt-0.5 leading-none">${res ? res.finalPoints : '—'}</span>
+                    `;
+                    this.dom.setIndicators.appendChild(el);
+                }
+            }
+
+            prepareCurrentSetUI() {
+                const cfg = this.getCurrentSetConfig();
+                this.state = 'IDLE';
+                this.isHiddenPhase = false;
+                this.currentDisplayTime = cfg.start;
+
+                this.dom.setBadge.textContent = `SET ${this.currentSetIndex + 1} / 5 • ${cfg.title}`;
+                this.dom.targetTime.textContent = cfg.target.toFixed(2);
+                this.dom.ruleDesc.textContent = cfg.desc;
+                this.dom.multiplierTag.classList.toggle('hidden', cfg.mult <= 1);
+
+                this.dom.timerValue.textContent = cfg.start.toFixed(2);
+                this.dom.timerValue.style.color = 'var(--text-primary)';
+                this.dom.timerValue.className = 'timer-visible timer-digits font-mono text-6xl sm:text-7xl font-extrabold tracking-tight tabular-nums';
+                this.dom.blindOverlay.classList.add('hidden');
+                this.dom.roundFeedback.innerHTML = `<span class="text-xs theme-text-muted font-medium">Hazır olduğunda başlat</span>`;
+
+                this.setRingProgress(0, 'var(--accent-primary)', true);
+                this.setButtonStyle('START');
+                this.renderSetIndicators();
+            }
+
+            setButtonStyle(mode) {
+                const btn = this.dom.mainBtn;
+                btn.classList.remove('state-start', 'state-stop', 'state-next');
+                if (mode === 'START') {
+                    btn.classList.add('state-start');
+                    this.dom.btnMainLabel.textContent = 'BAŞLA';
+                    this.dom.btnSubLabel.textContent = 'Dokun / Space';
+                } else if (mode === 'STOP') {
+                    btn.classList.add('state-stop');
+                    this.dom.btnMainLabel.textContent = 'DUR';
+                    this.dom.btnSubLabel.textContent = 'Tam Zamanında Bas!';
+                } else if (mode === 'NEXT') {
+                    btn.classList.add('state-next');
+                    this.dom.btnMainLabel.textContent = this.currentSetIndex < 4 ? 'SONRAKİ SET' : 'SONUÇLAR';
+                    this.dom.btnSubLabel.textContent = this.currentSetIndex < 4 ? `Set ${this.currentSetIndex + 2} / 5` : 'Özeti Gör';
+                }
+            }
+
+            setRingProgress(ratio, color = 'var(--accent-primary)', visible = true) {
+                const clamped = Math.max(0, Math.min(1, ratio));
+                const offset = this.ringCircumference * (1 - clamped);
+                this.dom.progressRing.style.strokeDashoffset = offset;
+                this.dom.progressRing.style.stroke = color;
+                this.dom.progressRing.style.opacity = visible ? '1' : '0.12';
+            }
+
+            handlePrimaryAction() {
+                if (this.state === 'IDLE') {
+                    this.startSet();
+                } else if (this.state === 'RUNNING') {
+                    this.stopSet();
+                } else if (this.state === 'RESULT') {
+                    if (this.currentSetIndex < 4) {
+                        this.currentSetIndex++;
+                        this.prepareCurrentSetUI();
+                    } else {
+                        this.finishGame();
+                    }
+                }
+            }
+
+            startSet() {
+                const cfg = this.getCurrentSetConfig();
+                this.state = 'RUNNING';
+                this.startTimePerf = performance.now();
+                this.isHiddenPhase = false;
+                this.sound.lastTickStep = -1;
+
+                this.sound.playStart();
+                this.triggerHaptic(20);
+                this.setButtonStyle('STOP');
+                this.dom.roundFeedback.innerHTML = `<span class="text-xs text-rose-500 font-bold animate-pulse">Kronometre çalışıyor...</span>`;
+
+                const loop = (now) => {
+                    if (this.state !== 'RUNNING') return;
+
+                    const elapsedSec = (now - this.startTimePerf) / 1000;
+                    let displayVal = cfg.reverse ? (cfg.start - elapsedSec) : elapsedSec;
+
+                    // Otomatik üst/alt güvenlik sınırı
+                    if (cfg.reverse && displayVal <= -3.0) {
+                        this.currentDisplayTime = -3.0;
+                        this.stopSet();
+                        return;
+                    }
+                    if (!cfg.reverse && displayVal >= cfg.target + 4.0) {
+                        this.currentDisplayTime = cfg.target + 4.0;
+                        this.stopSet();
+                        return;
+                    }
+
+                    this.currentDisplayTime = displayVal;
+                    this.dom.timerValue.textContent = displayVal.toFixed(2);
+
+                    // Sayaç Gizleme Kontrolü
+                    if (cfg.hideAt !== null && !this.isHiddenPhase) {
+                        const shouldHide = cfg.reverse ? (displayVal <= cfg.hideAt) : (displayVal >= cfg.hideAt);
+                        if (shouldHide) {
+                            this.isHiddenPhase = true;
+                            this.dom.timerValue.classList.remove('timer-visible');
+                            this.dom.timerValue.classList.add('timer-hidden');
+                            this.dom.blindOverlay.classList.remove('hidden');
+                            this.setRingProgress(0.5, 'var(--accent-secondary)', false);
+                        }
+                    }
+
+                    // Görünür fazdaysa halka ve her 0.25 sn'de bir tik sesi
+                    if (!this.isHiddenPhase) {
+                        const totalSpan = Math.abs(cfg.target - cfg.start);
+                        const progress = totalSpan > 0 ? Math.min(1, elapsedSec / totalSpan) : 0;
+                        this.setRingProgress(progress, progress > 0.85 ? '#f59e0b' : 'var(--accent-primary)', true);
+
+                        const quarterStep = Math.floor(elapsedSec * 4);
+                        if (quarterStep !== this.sound.lastTickStep && quarterStep > 0) {
+                            this.sound.lastTickStep = quarterStep;
+                            this.sound.playTick(quarterStep % 4 === 0);
+                        }
+                    }
+
+                    this.rafId = requestAnimationFrame(loop);
+                };
+
+                this.rafId = requestAnimationFrame(loop);
+            }
+
+            stopSet() {
+                if (this.rafId) cancelAnimationFrame(this.rafId);
+                this.state = 'RESULT';
+                this.triggerHaptic([30, 25, 30]);
+
+                const cfg = this.getCurrentSetConfig();
+                const stoppedVal = Number(this.currentDisplayTime.toFixed(2));
+                const targetVal = Number(cfg.target.toFixed(2));
+                const diff = Number(Math.abs(stoppedVal - targetVal).toFixed(2));
+                const signedDiff = Number((stoppedVal - targetVal).toFixed(2));
+                const diffHundredths = Math.round(diff * 100);
+
+                // Gizli perdeyi kaldır
+                this.dom.timerValue.textContent = stoppedVal.toFixed(2);
+                this.dom.timerValue.classList.remove('timer-hidden');
+                this.dom.timerValue.classList.add('timer-visible');
+                this.dom.blindOverlay.classList.add('hidden');
+
+                // Puanlama Formülü
+                let basePoints = 0;
+                let isJackpot = false;
+
+                if (diffHundredths === 0) {
+                    basePoints = 1000;
+                    isJackpot = true;
+                } else if (diffHundredths <= 5) {
+                    basePoints = 1000 - (diffHundredths * 10);
+                } else {
+                    basePoints = Math.max(0, 950 - ((diffHundredths - 5) * 15));
+                }
+
+                // Kombo Çarpanı (Üst üste 900+ baz puan)
+                if (basePoints >= 900) {
+                    this.streak900Count++;
+                } else {
+                    this.streak900Count = 0;
+                }
+                const hasCombo = this.streak900Count >= 2;
+                const comboMultiplier = hasCombo ? 1.5 : 1.0;
+
+                const setMultiplier = cfg.mult || 1;
+                const jackpotBonus = isJackpot ? 200 : 0;
+                const finalPoints = Math.round((basePoints * comboMultiplier * setMultiplier) + jackpotBonus);
+
+                this.totalScore += finalPoints;
+
+                this.setResults.push({
+                    setNumber: this.currentSetIndex + 1,
+                    title: cfg.title,
+                    target: targetVal,
+                    stopped: stoppedVal,
+                    diff: diff,
+                    signedDiff: signedDiff,
+                    basePoints: basePoints,
+                    finalPoints: finalPoints,
+                    isJackpot: isJackpot,
+                    hasCombo: hasCombo,
+                    setMultiplier: setMultiplier
+                });
+
+                this.updateScoreHeader();
+                this.renderSetIndicators();
+                this.setButtonStyle('NEXT');
+
+                const diffSignText = signedDiff === 0 ? '0.00 sn' : (signedDiff > 0 ? `+${signedDiff.toFixed(2)} sn` : `${signedDiff.toFixed(2)} sn`);
+
+                if (isJackpot) {
+                    this.sound.playJackpot();
+                    this.triggerJackpotEffects();
+                    this.dom.timerValue.style.color = '#f59e0b';
+                    this.setRingProgress(1, '#f59e0b', true);
+                    this.dom.roundFeedback.innerHTML = `
+                        <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500 text-amber-500 text-xs font-extrabold">
+                            🎯 TAM İSABET! +200 Bonus (+${finalPoints} Puan)
+                        </span>
+                    `;
+                } else {
+                    this.sound.playStop(basePoints);
+                    const resultColor = basePoints >= 850 ? '#10b981' : (basePoints >= 500 ? '#f59e0b' : '#f43f5e');
+                    this.dom.timerValue.style.color = resultColor;
+                    this.setRingProgress(basePoints / 1000, resultColor, true);
+
+                    this.dom.roundFeedback.innerHTML = `
+                        <div class="flex items-center gap-2 text-xs font-bold">
+                            <span class="theme-text-secondary">Fark: <span class="font-mono" style="color: ${resultColor}">${diffSignText}</span></span>
+                            <span class="theme-text-muted">•</span>
+                            <span style="color: ${resultColor}">+${finalPoints} Puan</span>
+                        </div>
+                    `;
+                }
+            }
+
+            updateScoreHeader() {
+                this.dom.totalScore.textContent = this.totalScore.toLocaleString('tr-TR');
+                if (this.streak900Count >= 2) {
+                    this.dom.comboBadge.classList.remove('hidden');
+                    this.dom.comboBadge.classList.add('inline-flex');
+                } else {
+                    this.dom.comboBadge.classList.add('hidden');
+                    this.dom.comboBadge.classList.remove('inline-flex');
+                }
+            }
+
+            triggerJackpotEffects() {
+                this.dom.screenFlash.classList.remove('animate-flash');
+                void this.dom.screenFlash.offsetWidth;
+                this.dom.screenFlash.classList.add('animate-flash');
+
+                const colors = ['#f59e0b', '#10b981', '#38bdf8', '#f43f5e', '#a855f7'];
+                for (let i = 0; i < 40; i++) {
+                    const conf = document.createElement('div');
+                    conf.className = 'confetti';
+                    conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    conf.style.left = '50vw';
+                    conf.style.top = '42vh';
+                    document.body.appendChild(conf);
+
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = 85 + Math.random() * 200;
+                    const tx = Math.cos(angle) * velocity;
+                    const ty = Math.sin(angle) * velocity - 50;
+                    const rot = Math.random() * 720;
+
+                    conf.animate([
+                        { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+                        { transform: `translate(${tx}px, ${ty}px) rotate(${rot}deg)`, opacity: 0 }
+                    ], {
+                        duration: 700 + Math.random() * 450,
+                        easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
+                    }).onfinish = () => conf.remove();
+                }
+            }
+
+            formatTurkishDate(dateObj) {
+                const months = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
+                const day = dateObj.getDate();
+                const month = months[dateObj.getMonth()];
+                const hours = String(dateObj.getHours()).padStart(2, '0');
+                const mins = String(dateObj.getMinutes()).padStart(2, '0');
+                return `${day} ${month}, ${hours}:${mins}`;
+            }
+
+            finishGame() {
+                this.state = 'FINISHED';
+                this.sound.playFanfare();
+
+                const modeObj = GAME_MODES[this.currentModeKey];
+                const prevSummary = this.stats.getSummary();
+                const isNewRecord = this.totalScore > prevSummary.bestScore && this.totalScore > 0;
+                const exactHitsCount = this.setResults.filter(s => s.isJackpot).length;
+
+                // Oyunu kalıcı istatistik geçmişine kaydet
+                this.stats.addGameRecord({
+                    id: Date.now(),
+                    dateStr: this.formatTurkishDate(new Date()),
+                    modeKey: this.currentModeKey,
+                    modeName: modeObj.shortName,
+                    totalScore: this.totalScore,
+                    exactHits: exactHitsCount,
+                    sets: this.setResults.map(s => ({
+                        setNumber: s.setNumber,
+                        title: s.title,
+                        target: s.target,
+                        stopped: s.stopped,
+                        diff: s.diff,
+                        signedDiff: s.signedDiff,
+                        points: s.finalPoints,
+                        isJackpot: s.isJackpot
+                    }))
+                });
+
+                this.updateStatsBadge();
+
+                // Özet modalını doldur
+                this.dom.summaryModeTitle.textContent = `${modeObj.name} Sonucu`;
+                this.dom.finalTotalScore.textContent = this.totalScore.toLocaleString('tr-TR');
+                this.dom.newRecordBadge.classList.toggle('hidden', !isNewRecord);
+
+                let rank = '⏱️ Çırak Zamanlayıcı';
+                if (this.totalScore >= 5200) rank = '⚡ ZAMAN BÜKÜCÜ';
+                else if (this.totalScore >= 4400) rank = '🏆 SALİSE USTASI';
+                else if (this.totalScore >= 3300) rank = '🎯 KESKİN REFLEKS';
+                else if (this.totalScore >= 2000) rank = '🔥 İYİ RİTİM';
+                this.dom.finalRankText.textContent = rank;
+
+                this.dom.summaryList.innerHTML = '';
+                this.setResults.forEach(item => {
+                    const diffText = item.signedDiff === 0 ? '0.00' : (item.signedDiff > 0 ? `+${item.signedDiff.toFixed(2)}` : item.signedDiff.toFixed(2));
+                    const badgeColor = item.isJackpot ? '#f59e0b' : (item.basePoints >= 850 ? '#10b981' : 'var(--text-primary)');
+
+                    const row = document.createElement('div');
+                    row.className = 'flex items-center justify-between theme-surface-2 border rounded-xl px-3 py-2 text-xs';
+                    row.innerHTML = `
+                        <div class="flex flex-col">
+                            <span class="font-bold theme-text-primary">Set ${item.setNumber}: ${item.title}</span>
+                            <span class="text-[11px] theme-text-secondary font-mono">
+                                Hedef: ${item.target.toFixed(2)} • Dur: <strong class="theme-text-primary">${item.stopped.toFixed(2)}</strong> (${diffText})
+                            </span>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <span class="font-mono font-extrabold text-sm" style="color: ${badgeColor}">+${item.finalPoints}</span>
+                            <div class="flex gap-1">
+                                ${item.hasCombo ? '<span class="text-[9px] px-1 rounded bg-amber-500/20 text-amber-500 font-bold">1.5x</span>' : ''}
+                                ${item.setMultiplier > 1 ? '<span class="text-[9px] px-1 rounded bg-cyan-500/20 text-cyan-500 font-bold">2x</span>' : ''}
+                            </div>
+                        </div>
+                    `;
+                    this.dom.summaryList.appendChild(row);
+                });
+
+                this.showSummary();
+            }
+
+            // --- İSTATİSTİK GÖRÜNÜM GEÇİŞİ (VIEW SWITCHER) ---
+            updateStatsBadge() {
+                const count = this.stats.records.length;
+                if (count > 0) {
+                    this.dom.statsCountBadge.textContent = count > 99 ? '99+' : count;
+                    this.dom.statsCountBadge.classList.remove('hidden');
+                    this.dom.statsCountBadge.classList.add('flex');
+                } else {
+                    this.dom.statsCountBadge.classList.add('hidden');
+                    this.dom.statsCountBadge.classList.remove('flex');
+                }
+            }
+
+            openStatsView() {
+                // Eğer sayaç aktif olarak çalışıyorsa duraklat/sıfırla
+                if (this.state === 'RUNNING') {
+                    if (this.rafId) cancelAnimationFrame(this.rafId);
+                    this.prepareCurrentSetUI();
+                }
+                this.dom.themeMenu.classList.add('hidden');
+                this.hideSummary();
+                this.resetConfirmUI();
+                this.renderStatsContent();
+
+                this.dom.modeNav.classList.add('hidden');
+                this.dom.setIndicators.classList.add('hidden');
+                this.dom.gameView.classList.add('hidden');
+                this.dom.gameView.classList.remove('flex');
+
+                this.dom.statsView.classList.remove('hidden');
+                this.dom.statsView.classList.add('flex');
+                this.dom.openStatsBtn.classList.add('ring-2', 'ring-amber-500/60');
+            }
+
+            closeStatsView() {
+                this.resetConfirmUI();
+                this.dom.statsView.classList.add('hidden');
+                this.dom.statsView.classList.remove('flex');
+
+                this.dom.modeNav.classList.remove('hidden');
+                this.dom.setIndicators.classList.remove('hidden');
+                this.dom.gameView.classList.remove('hidden');
+                this.dom.gameView.classList.add('flex');
+                this.dom.openStatsBtn.classList.remove('ring-2', 'ring-amber-500/60');
+            }
+
+            renderStatsContent() {
+                const summary = this.stats.getSummary();
+                this.dom.statTotalGames.textContent = summary.totalGames.toLocaleString('tr-TR');
+                this.dom.statBestScore.textContent = summary.bestScore.toLocaleString('tr-TR');
+                this.dom.statAvgScore.textContent = summary.avgScore.toLocaleString('tr-TR');
+                this.dom.statExactHits.textContent = summary.totalExactHits.toLocaleString('tr-TR');
+
+                const container = this.dom.historyListContainer;
+                container.innerHTML = '';
+
+                if (this.stats.records.length === 0) {
+                    if (this.dom.resetStatsWrapper) this.dom.resetStatsWrapper.classList.add('hidden');
+                    container.innerHTML = `
+                        <div class="flex-1 flex flex-col items-center justify-center text-center py-8 px-4 theme-surface-2 border rounded-2xl">
+                            <span class="text-3xl mb-2">⏱️</span>
+                            <p class="text-sm font-bold theme-text-primary">Henüz tamamlanmış oyun yok</p>
+                            <p class="text-xs theme-text-secondary mt-1">5 setlik bir oyunu tamamladığında tüm skorların ve set analizlerin burada listelenecek.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                if (this.dom.resetStatsWrapper) this.dom.resetStatsWrapper.classList.remove('hidden');
+
+                this.stats.records.forEach((rec, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'theme-surface-2 border rounded-2xl p-3 flex flex-col gap-2';
+
+                    const setsPillsHTML = rec.sets.map(s => {
+                        const pillColor = s.isJackpot
+                            ? 'bg-amber-500/20 text-amber-500 border-amber-500/40'
+                            : (s.diff <= 0.15 ? 'bg-emerald-500/15 text-emerald-500 border-emerald-500/30' : 'theme-surface-1 theme-text-secondary');
+                        return `
+                            <span class="px-1.5 py-0.5 rounded-md border font-mono text-[10px] font-bold ${pillColor}" title="Set ${s.setNumber}: ${s.stopped.toFixed(2)}s">
+                                S${s.setNumber}: ${s.points}
+                            </span>
+                        `;
+                    }).join('');
+
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="font-mono text-[11px] font-bold px-2 py-0.5 rounded-md theme-surface-1 border theme-text-secondary">
+                                    #${this.stats.records.length - index}
+                                </span>
+                                <div>
+                                    <div class="text-xs font-extrabold theme-text-primary flex items-center gap-1.5">
+                                        <span>${rec.modeName}</span>
+                                        ${rec.exactHits > 0 ? `<span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-500 font-bold">🎯 ${rec.exactHits} Tam İsabet</span>` : ''}
+                                    </div>
+                                    <div class="text-[10px] theme-text-muted font-medium">${rec.dateStr}</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-mono text-base font-extrabold theme-accent-primary leading-none">
+                                    ${rec.totalScore.toLocaleString('tr-TR')}
+                                </div>
+                                <div class="text-[9px] uppercase font-bold theme-text-muted mt-0.5">Puan</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1 pt-1 border-t" style="border-color: var(--border-color);">
+                            ${setsPillsHTML}
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+        }
+
+        // Uygulamayı Başlat
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', () => {
+                window.game = new SaliseAviGame();
+            });
+        } else {
+            window.game = new SaliseAviGame();
+        }
+    </script>
+</body>
+</html>
