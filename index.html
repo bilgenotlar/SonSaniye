@@ -216,6 +216,7 @@
 
         /* Merkez Buton Durumları */
         .action-btn {
+            touch-action: manipulation;
             transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, background 0.25s ease;
         }
         .action-btn:active {
@@ -533,7 +534,7 @@
         </p>
     </footer>
 
-    <!-- OYUN SONU ÖZET KARTI (OPACITY:0 ANİMASYONU OLMADAN) -->
+    <!-- OYUN SONU ÖZET KARTI (MOBİL HAYALET TIKLAMA KORUMALI) -->
     <div id="summaryModal" class="hidden fixed inset-0 z-[100] bg-black/75 backdrop-blur-md items-center justify-center p-4">
         <div class="w-full max-w-md theme-surface-1 border rounded-3xl p-5 sm:p-6 flex flex-col gap-4">
             
@@ -605,7 +606,6 @@
                 return this.enabled;
             }
 
-            // Her 0.25 sn'de bir hafif mekanik tik-tak (sadece sayaç görünürken çalar)
             playTick(isFullSecond = false) {
                 if (!this.enabled) return;
                 this.init();
@@ -721,7 +721,6 @@
                     localStorage.setItem(this.storageKey, themeName);
                 } catch (e) {}
 
-                // Seçili tema tik işaretini güncelle
                 document.querySelectorAll('.theme-option').forEach(btn => {
                     const opt = btn.getAttribute('data-theme-option');
                     const check = btn.querySelector('.theme-check');
@@ -755,7 +754,7 @@
             }
 
             addGameRecord(record) {
-                this.records.unshift(record); // En yeni en üstte
+                this.records.unshift(record);
                 this.saveRecords();
             }
 
@@ -840,6 +839,7 @@
                 this.rafId = null;
                 this.currentDisplayTime = 0;
                 this.isHiddenPhase = false;
+                this.summaryOpenedAt = 0; // Mobil hayalet tıklama kilidi zaman damgası
 
                 this.totalScore = 0;
                 this.streak900Count = 0;
@@ -906,10 +906,16 @@
             }
 
             bindEvents() {
-                // Merkez Ana Buton (Pointerdown ile sıfır dokunma gecikmesi)
+                // Merkez Ana Buton (Pointerdown ile sıfır gecikme + sentetik click yutma)
                 this.dom.mainBtn.addEventListener('pointerdown', (e) => {
                     e.preventDefault();
+                    e.stopPropagation();
                     this.handlePrimaryAction();
+                });
+
+                this.dom.mainBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                 });
 
                 // PC Klavye Space / Enter / Escape Desteği
@@ -924,6 +930,7 @@
                         }
                         e.preventDefault();
                         if (this.state === 'FINISHED') {
+                            if (performance.now() - this.summaryOpenedAt < 450) return;
                             this.restartGame();
                         } else {
                             this.handlePrimaryAction();
@@ -967,9 +974,21 @@
                     this.dom.soundOffIcon.classList.toggle('hidden', isOn);
                 });
 
-                // Özet Kartı Butonları
-                this.dom.restartBtn.addEventListener('click', () => this.restartGame());
-                this.dom.summaryStatsBtn.addEventListener('click', () => {
+                // Özet Kartı Butonları (İlk 450ms hayalet dokunma koruması)
+                this.dom.restartBtn.addEventListener('click', (e) => {
+                    if (performance.now() - this.summaryOpenedAt < 450) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return;
+                    }
+                    this.restartGame();
+                });
+                this.dom.summaryStatsBtn.addEventListener('click', (e) => {
+                    if (performance.now() - this.summaryOpenedAt < 450) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return;
+                    }
                     this.hideSummary();
                     this.openStatsView();
                 });
@@ -1003,6 +1022,7 @@
             }
 
             showSummary() {
+                this.summaryOpenedAt = performance.now();
                 this.dom.summaryModal.classList.remove('hidden');
                 this.dom.summaryModal.classList.add('flex');
             }
@@ -1177,7 +1197,6 @@
                     const elapsedSec = (now - this.startTimePerf) / 1000;
                     let displayVal = cfg.reverse ? (cfg.start - elapsedSec) : elapsedSec;
 
-                    // Otomatik üst/alt güvenlik sınırı
                     if (cfg.reverse && displayVal <= -3.0) {
                         this.currentDisplayTime = -3.0;
                         this.stopSet();
@@ -1192,7 +1211,6 @@
                     this.currentDisplayTime = displayVal;
                     this.dom.timerValue.textContent = displayVal.toFixed(2);
 
-                    // Sayaç Gizleme Kontrolü
                     if (cfg.hideAt !== null && !this.isHiddenPhase) {
                         const shouldHide = cfg.reverse ? (displayVal <= cfg.hideAt) : (displayVal >= cfg.hideAt);
                         if (shouldHide) {
@@ -1204,7 +1222,6 @@
                         }
                     }
 
-                    // Görünür fazdaysa halka ve her 0.25 sn'de bir tik sesi
                     if (!this.isHiddenPhase) {
                         const totalSpan = Math.abs(cfg.target - cfg.start);
                         const progress = totalSpan > 0 ? Math.min(1, elapsedSec / totalSpan) : 0;
@@ -1235,13 +1252,11 @@
                 const signedDiff = Number((stoppedVal - targetVal).toFixed(2));
                 const diffHundredths = Math.round(diff * 100);
 
-                // Gizli perdeyi kaldır
                 this.dom.timerValue.textContent = stoppedVal.toFixed(2);
                 this.dom.timerValue.classList.remove('timer-hidden');
                 this.dom.timerValue.classList.add('timer-visible');
                 this.dom.blindOverlay.classList.add('hidden');
 
-                // Puanlama Formülü
                 let basePoints = 0;
                 let isJackpot = false;
 
@@ -1254,7 +1269,6 @@
                     basePoints = Math.max(0, 950 - ((diffHundredths - 5) * 15));
                 }
 
-                // Kombo Çarpanı (Üst üste 900+ baz puan)
                 if (basePoints >= 900) {
                     this.streak900Count++;
                 } else {
@@ -1374,7 +1388,6 @@
                 const isNewRecord = this.totalScore > prevSummary.bestScore && this.totalScore > 0;
                 const exactHitsCount = this.setResults.filter(s => s.isJackpot).length;
 
-                // Oyunu kalıcı istatistik geçmişine kaydet
                 this.stats.addGameRecord({
                     id: Date.now(),
                     dateStr: this.formatTurkishDate(new Date()),
@@ -1396,7 +1409,6 @@
 
                 this.updateStatsBadge();
 
-                // Özet modalını doldur
                 this.dom.summaryModeTitle.textContent = `${modeObj.name} Sonucu`;
                 this.dom.finalTotalScore.textContent = this.totalScore.toLocaleString('tr-TR');
                 this.dom.newRecordBadge.classList.toggle('hidden', !isNewRecord);
@@ -1450,7 +1462,6 @@
             }
 
             openStatsView() {
-                // Eğer sayaç aktif olarak çalışıyorsa duraklat/sıfırla
                 if (this.state === 'RUNNING') {
                     if (this.rafId) cancelAnimationFrame(this.rafId);
                     this.prepareCurrentSetUI();
